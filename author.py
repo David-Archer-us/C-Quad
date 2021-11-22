@@ -7,8 +7,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 # from sklearn.feature_extraction.text import TfidfVectorizer
 
 from sklearn.svm import LinearSVC
-# from sklearn.linear_model import Perceptron
-# from sklearn.linear_model import SGDClassifier
+# from sklearn.linear_model import LogisticRegression
 
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import normalized_mutual_info_score
@@ -59,21 +58,18 @@ def setupData(df_train, df_test):
 
 
 def vectorize(x_train, x_test):
-    vectorizer = CountVectorizer(binary=True)   # 73.24%
+    
+    vectorizer = CountVectorizer(binary=True, ngram_range=(1, 2), min_df=5)  # 76.56%
     # vectorizer = TfidfVectorizer(ngram_range=(1, 5), min_df=5)  # 71.04%
-    # vectorizer = TfidfVectorizer(ngram_range=(1, 2), min_df=5)  # 70.44%
-    # vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1, 2), min_df=5)  # 68.92%
 
     vectorizer.fit(x_train)
     return vectorizer.transform(x_train), vectorizer.transform(x_test)
 
 
 def predictionScore(x_train, x_test, y_train, y_test):
-    # Using a StandardScalar makes it worse
 
-    svm = LinearSVC()     # 73.24%
-    # svm = SGDClassifier()   # 65.28%
-    # svm = Perceptron()    # 64.08%
+    svm = LinearSVC(max_iter=10000)     # 76.56%
+    # svm = LogisticRegression()    # 75.24%, too slow
 
     svm.fit(x_train, y_train)
     prediction = svm.predict(x_test)
@@ -91,7 +87,7 @@ def main():
     x_train, x_test = vectorize(x_train, x_test)
     prediction, score = predictionScore(x_train, x_test, y_train, y_test)
     print("Accuracy:", score)
-    print("normalized_mutual_info_score between predict and test:", normalized_mutual_info_score(y_test, prediction))
+    print("Mutual info score:", normalized_mutual_info_score(y_test, prediction))
     # todo - end
 
     end = time.time()
