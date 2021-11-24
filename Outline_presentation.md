@@ -10,7 +10,7 @@
 - Use LinearSVM as the best solution
 - Our achievement
 
-## III. Challenges
+## III. Discussion
 - No access to HPC
 - Surprising poor performance of KNN, Logistic Regression, etc.
 - Tuning parameters of models
