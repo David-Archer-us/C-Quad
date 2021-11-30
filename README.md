@@ -22,5 +22,6 @@ Compared with TF-IDF + SVM, Dictionary + Cosine, multi-layer perceptron network,
 ## Running Instructions
 
 The `simple_SVM.ipynb` file should run just by opening it in Jupyter Notebook or in a terminal with Pandas ready.
+
 Alternatively, run the `author.py `python file as a script. 
 
