@@ -65,7 +65,6 @@ vectorizer.fit(X_train)
 X_train_vec = vectorizer.transform(X_train)
 X_test_vec = vectorizer.transform(X_test)
 
-
 # svm = LinearSVC(max_iter=10000)
 # svm = LogisticRegression(max_iter=10000)
 svm = LinearRegression()
@@ -74,8 +73,6 @@ svm = LinearRegression()
 prob = svm.fit(X_train_vec, y_train)
 y_pred_svm = svm.predict(X_test_vec)
 
-
 print("Accuracy:", accuracy_score(y_test, y_pred_svm))
 print(pd.DataFrame(confusion_matrix(y_test, y_pred_svm)).loc[10:25, 10:25])
 print("normalized_mutual_info_score between predict and test:", normalized_mutual_info_score(y_test, y_pred_svm))
-
